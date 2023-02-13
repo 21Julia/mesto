@@ -1,0 +1,8 @@
+.element__image {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  max-width: 100%;
+  -o-object-fit: cover;
+     object-fit: cover;
+}

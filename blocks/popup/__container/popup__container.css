@@ -1,0 +1,14 @@
+.popup__container {
+  position: relative;
+  min-width: 430px;
+  background: #fff;
+  border-radius: 10px;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+}
+
+@media all and (max-width: 500px) {
+  .popup__container {
+    min-width: calc(100% - 38px);
+  }
+}
