@@ -29,5 +29,5 @@ ___
 
 ## Ссылка страницы на GitHub Pages:
 
-[]
+[https://21julia.github.io/mesto/]
 
