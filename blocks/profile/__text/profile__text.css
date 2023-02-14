@@ -17,11 +17,12 @@
 
 @media all and (max-width: 720px) {
   .profile__text {
+    max-width: calc(100% - 93px);
     margin-right: 10px;
+    margin-left: 46px;
     -webkit-box-align: center;
         -ms-flex-align: center;
             align-items: center;
     gap: 7px;
-    margin-left: 46px;
   }
 }

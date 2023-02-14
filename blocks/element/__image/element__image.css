@@ -2,7 +2,8 @@
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
-  max-width: 100%;
+  width: 282px;
+  height: 282px;
   -o-object-fit: cover;
      object-fit: cover;
 }

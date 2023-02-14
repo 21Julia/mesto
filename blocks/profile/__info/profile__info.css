@@ -9,7 +9,7 @@
 
 @media all and (max-width: 720px) {
   .profile__info {
-    min-width: 100%;
+    max-width: 100%;
     -webkit-box-orient: vertical;
     -webkit-box-direction: normal;
         -ms-flex-direction: column;

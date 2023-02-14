@@ -12,7 +12,7 @@
   min-height: 32px;
 }
 
-@media all and (max-width: 500px) {
+@media all and (max-width: 530px) {
   .popup__close-button {
     right: 0;
     top: -36px;

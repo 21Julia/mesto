@@ -7,7 +7,7 @@
 
 @media all and (max-width: 720px) {
   .profile__description {
-    min-width: 100%;
+    max-width: 100%;
     -webkit-box-pack: center;
         -ms-flex-pack: center;
             justify-content: center;
