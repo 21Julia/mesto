@@ -1,36 +1,3 @@
-const initialCards = [
-  {
-    name: 'Карачаевск',
-    link: './images/element-karachayevsk.jpg',
-    alt: 'Храм, расположенный на горном хребте, окружённый лесом.'
-  },
-  {
-    name: 'Гора Эльбрус',
-    link: './images/element-mount-elbrus.jpg',
-    alt: 'Долина с верхушками гор в далеке.'
-  },
-  {
-    name: 'Домбай',
-    link: './images/element-dombay.jpg',
-    alt: 'Склоны заснеженных гор с лесом.'
-  },
-  {
-    name: 'Лермонтов',
-    link: './images/element-lermontov.jpg',
-    alt: 'Монастырь на фоне гор.'
-  },
-  {
-    name: 'Ессентуки',
-    link: './images/element-essentuki.jpg',
-    alt: 'Здание в античном стиле с колоннами.'
-  },
-  {
-    name: 'Замок Шато Эркен',
-    link: './images/element-castle.jpg',
-    alt: 'Вид на озеро с замком в далеке.'
-  }
-];
-
 // Переменные из блока Профиль
 const profile = document.querySelector('.profile');
 const nameProfile = profile.querySelector('.profile__title');
@@ -78,10 +45,15 @@ function handleEditFormSubmit(evt) {
   closePopup(editPopup);
 };
 
+function handleLikeButton(evt) {
+  evt.target.classList.toggle('element__like-button_active');
+};
+
 // Функция для создания карточек при помощи template
-const addCard = (item) => {
+const createCard = (item) => {
   const cardTemplate = document.querySelector('.card-template').content;
   const cardElement = cardTemplate.querySelector('.element').cloneNode(true);
+  const likeButton = cardElement.querySelector('.element__like-button');
   const deleteButton = cardElement.querySelector('.element__delete-button');
 
   cardElement.querySelector('.element__title').textContent = item.name;
@@ -89,9 +61,7 @@ const addCard = (item) => {
   cardElement.querySelector('.element__image').alt = item.alt;
 
   // Обработчик события для лайка
-  cardElement.querySelector('.element__like-button').addEventListener('click', function (evt) {
-    evt.target.classList.toggle('element__like-button_active');
-  });
+  likeButton.addEventListener('click', handleLikeButton);
 
   // Обработчик события для удаления карточки
   deleteButton.addEventListener('click', function () {
@@ -106,14 +76,12 @@ const addCard = (item) => {
     openPopup(imagePopup);
   });
 
-  cardsList.prepend(cardElement);
-
   return cardElement;
 };
 
 // Функция для создания новой карточки
 const renderCard = (item, cardsContainer) => {
-  const cardElement = addCard(item);
+  const cardElement = createCard(item);
 
   cardsContainer.prepend(cardElement);
 };
@@ -127,9 +95,10 @@ function handleAddFormSubmit(evt) {
 
   const card = {
     name: titleInputValue,
-    link: linkInputValue
+    link: linkInputValue,
+    alt: titleInputValue
   };
-  initialCards.push(card);
+
   renderCard(card, cardsList);
 
   closePopup(addPopup);
@@ -157,8 +126,7 @@ editFormPopup.addEventListener('submit', handleEditFormSubmit);
 // Прикрепили обработчик к кнопке открытия попапа добавления карточек
 addCardButton.addEventListener('click', function () {
   openPopup(addPopup);
-  titleInput.value = '';
-  linkInput.value = '';
+  addFormPopup.reset();
 });
 
 // Прикрепили обработчик к кнопке закрытия попапа добавления карточек
