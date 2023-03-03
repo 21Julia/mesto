@@ -4,7 +4,9 @@
   position: fixed;
   top: 0;
   left: 0;
-  display: none;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
   -webkit-box-pack: center;
       -ms-flex-pack: center;
           justify-content: center;
@@ -12,4 +14,9 @@
       -ms-flex-align: center;
           align-items: center;
   background: rgba(0, 0, 0, 0.5);
+  visibility: hidden;
+  opacity: 0;
+  -webkit-transition: visibility 0.7s ease-in, opacity 0.7s ease-in;
+  -o-transition: visibility 0.7s ease-in, opacity 0.7s ease-in;
+  transition: visibility 0.7s ease-in, opacity 0.7s ease-in;
 }
