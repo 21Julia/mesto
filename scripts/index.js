@@ -27,14 +27,26 @@ const closeImageButton = imagePopup.querySelector('.popup__close-button_type_ima
 const cardsList = document.querySelector('.elements__list');
 
 
-// Функция для открытия попапа
+// Функция для открытия попапа и прикрепления слушателя событий для закрытия попапа нажатием на клавишу Esc
 function openPopup(popup) {
   popup.classList.add('popup_opened');
+
+  document.addEventListener('keydown', function (evt) {
+    if (evt.key === "Escape") {
+      closePopup(popup);
+    };
+  });
 };
 
-// Функция для закрытия попапа
+// Функция для закрытия попапа и удаления слушателя событий для закрытия попапа нажатием на клавишу Esc
 function closePopup(popup) {
   popup.classList.remove('popup_opened');
+
+  document.removeEventListener('keydown', function (evt) {
+    if (evt.key === "Escape") {
+      closePopup(popup);
+    };
+  });
 };
 
 // Функция для редактирования имени и информации о себе
@@ -107,6 +119,27 @@ function handleAddFormSubmit(evt) {
 // Автоматически добавленные карточки при загрузке страницы
 initialCards.forEach(card => { renderCard(card, cardsList); });
 
+// Функция для закрытия попапа редактирования информации кликом на тёмный фон
+function closeBeyondEditForm (evt) {
+  if (evt.target.classList.contains('popup')) {
+    closePopup(editPopup);
+  };
+};
+
+// Функция для закрытия попапа добавления карточек кликом на тёмный фон
+function closeBeyondAddForm (evt) {
+  if (evt.target.classList.contains('popup')) {
+    closePopup(addPopup);
+  };
+};
+
+// Функция для закрытия попапа картинок кликом на тёмный фон
+function closeBeyondImageForm (evt) {
+  if (evt.target.classList.contains('popup')) {
+    closePopup(imagePopup);
+  };
+};
+
 
 // Прикрепили обработчик к кнопке открытия попапа редактирования информации
 editProfileButton.addEventListener('click', function () {
@@ -123,6 +156,7 @@ closeEditFormButton.addEventListener('click', function () {
 // Прикрепили обработчик к форме для сохранения информации о пользователе
 editFormPopup.addEventListener('submit', handleEditFormSubmit);
 
+
 // Прикрепили обработчик к кнопке открытия попапа добавления карточек
 addCardButton.addEventListener('click', function () {
   openPopup(addPopup);
@@ -137,7 +171,18 @@ closeAddFormButton.addEventListener('click', function () {
 // Прикрепили обработчик к форме для добавления карточек
 addFormPopup.addEventListener('submit', handleAddFormSubmit);
 
+
 // Прикрепили обработчик к кнопке закрытия попапа картинок
 closeImageButton.addEventListener('click', function () {
   closePopup(imagePopup);
 });
+
+
+// Прикрепили обработчик к попапу редактирования информации для закрытия кликом на оверлей
+editPopup.addEventListener('click', closeBeyondEditForm);
+
+// Прикрепили обработчик к попапу добавления карточек для закрытия кликом на оверлей
+addPopup.addEventListener('click', closeBeyondAddForm);
+
+// Прикрепили обработчик к попапу картинок для закрытия кликом на оверлей
+imagePopup.addEventListener('click', closeBeyondImageForm);
