@@ -40,7 +40,7 @@ const checkInputValidity = (form, input, {...rest}) => {
 };
 
 
-// Функция, возвращаюя true, если хотя бы одно поле невалидно
+// Функция, возвращающая true, если хотя бы одно поле невалидно
 const hasInvalidInput = (inputList) => {
   return inputList.some((input) => {
     return !input.validity.valid;
