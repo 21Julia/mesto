@@ -1,37 +1,8 @@
-// Переменные из блока Профиль
-const profile = document.querySelector('.profile');
-const nameProfile = profile.querySelector('.profile__title');
-const descriptionProfile = profile.querySelector('.profile__subtitle');
-const editProfileButton = profile.querySelector('.profile__edit-button');
-const addCardButton = profile.querySelector('.profile__add-button');
+import {popups, nameProfile, descriptionProfile, nameInput, descriptionInput, editPopup, titleInput, linkInput, cardsList, initialCards, editProfileButton, editFormPopup, addCardButton, addPopup, addFormPopup, addButtonSubmit, obj} from '../utils/constants.js';
 
-// Переменная для нахождения всех попапов
-const popups = document.querySelectorAll('.popup');
+import Card from './Card.js';
 
-// Переменные попапа редактирования информации
-const editPopup = document.querySelector('.popup_type_edit');
-const nameInput = editPopup.querySelector('.popup__input_type_name');
-const descriptionInput = editPopup.querySelector('.popup__input_type_description');
-const editFormPopup = editPopup.querySelector('.popup__form_type_edit');
-
-// Переменные попапа добавления карточек
-const addPopup = document.querySelector('.popup_type_add');
-const titleInput = addPopup.querySelector('.popup__input_type_title');
-const linkInput = addPopup.querySelector('.popup__input_type_link');
-const addFormPopup = addPopup.querySelector('.popup__form_type_add');
-const addButtonSubmit = addPopup.querySelector('.popup__save-button');
-
-// Переменные попапа с картинкой
-const imagePopup = document.querySelector('.popup_type_image');
-const popupImageContainer = imagePopup.querySelector('.popup__image');
-const popupCaption = imagePopup.querySelector('.popup__caption');
-
-// Переменная контейнера для карточек
-const cardsList = document.querySelector('.elements__list');
-
-// Переменная template для карточки
-const template = document.querySelector('.card-template');
-
+import FormValidator from './FormValidator.js';
 
 // Функция, закрывающая модальное окно по нажатию на Esc
 function closeByEscape(evt) {
@@ -76,46 +47,10 @@ function handleEditFormSubmit(evt) {
   closePopup(editPopup);
 };
 
-// Функция для переключения состояния кнопки лайка
-function handleLikeButton(evt) {
-  evt.target.classList.toggle('element__like-button_active');
-};
-
-// Функция для создания карточек при помощи template
-const createCard = item => {
-  const cardTemplate = template.content;
-  const cardElement = cardTemplate.querySelector('.element').cloneNode(true);
-  const likeButton = cardElement.querySelector('.element__like-button');
-  const deleteButton = cardElement.querySelector('.element__delete-button');
-  const elementTitle = cardElement.querySelector('.element__title');
-  const elementImage = cardElement.querySelector('.element__image');
-
-  elementTitle.textContent = item.name;;
-  elementImage.src = item.link;
-  elementImage.alt = item.alt;
-
-  // Обработчик события для лайка
-  likeButton.addEventListener('click', handleLikeButton);
-
-  // Обработчик события для удаления карточки
-  deleteButton.addEventListener('click', function () {
-    deleteButton.closest('.element').remove();
-  });
-
-  // Обработчик события для открытия картинки в попапе
-  elementImage.addEventListener('click', function () {
-    popupImageContainer.src = item.link;
-    popupImageContainer.alt = item.alt;
-    popupCaption.textContent = item.name;
-    openPopup(imagePopup);
-  });
-
-  return cardElement;
-};
-
 // Функция для создания новой карточки
 const renderCard = (item, cardsContainer) => {
-  const cardElement = createCard(item);
+  const card = new Card(item, '.card-template');
+  const cardElement = card.generateCard();
 
   cardsContainer.prepend(cardElement);
 };
@@ -138,9 +73,14 @@ function handleAddFormSubmit(evt) {
   closePopup(addPopup);
 };
 
-// Автоматически добавленные карточки при загрузке страницы
-initialCards.forEach(card => {renderCard(card, cardsList);});
+// Цикл для создания экземпляра карточки, подготовки её к публикации и добавления в DOM
+initialCards.forEach((item) => {
+  const card = new Card(item, '.card-template');
 
+  const cardElement = card.generateCard();
+
+  cardsList.append(cardElement);
+})
 
 // Прикрепили обработчик к кнопке открытия попапа редактирования информации
 editProfileButton.addEventListener('click', () => {
@@ -162,5 +102,13 @@ addCardButton.addEventListener('click', () => {
 
 // Прикрепили обработчик к форме для добавления карточек
 addFormPopup.addEventListener('submit', handleAddFormSubmit);
+
+// Создаем экземпляр класса FormValidator для формы редактирования информации о себе
+const editFormValidation = new FormValidator(obj, '.popup__form_type_edit');
+editFormValidation.enableValidation();
+
+// Создаем экземпляр класса FormValidator для формы добавления карточек
+const addFormValidation = new FormValidator(obj, '.popup__form_type_add');
+addFormValidation.enableValidation();
 
 closePopups();
