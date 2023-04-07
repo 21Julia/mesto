@@ -1,4 +1,4 @@
-import {popups, nameProfile, descriptionProfile, nameInput, descriptionInput, editPopup, titleInput, linkInput, cardsList, initialCards, editProfileButton, editFormPopup, addCardButton, addPopup, addFormPopup, addButtonSubmit, obj} from '../utils/constants.js';
+import {popups, nameProfile, descriptionProfile, nameInput, descriptionInput, editPopup, titleInput, linkInput, cardsList, initialCards, editProfileButton, editFormPopup, addCardButton, addPopup, addFormPopup, addButtonSubmit, popupImageContainer, popupCaption, imagePopup, obj} from '../utils/constants.js';
 
 import Card from './Card.js';
 
@@ -47,10 +47,25 @@ function handleEditFormSubmit(evt) {
   closePopup(editPopup);
 };
 
+// Функция для открытия картинки в попапе
+function handleOpenImagePopup(link, alt, name) {
+  popupImageContainer.src = link;
+  popupImageContainer.alt = alt;
+  popupCaption.textContent = name;
+  openPopup(imagePopup);
+};
+
 // Функция для создания новой карточки
-const renderCard = (item, cardsContainer) => {
-  const card = new Card(item, '.card-template');
+const createCard = (item) => {
+  const card = new Card(item, '.card-template', handleOpenImagePopup);
   const cardElement = card.generateCard();
+
+  return cardElement;
+}
+
+// Функция для добавления карточки на страницу
+const renderCard = (item, cardsContainer) => {
+  const cardElement = createCard(item);
 
   cardsContainer.prepend(cardElement);
 };
@@ -75,7 +90,7 @@ function handleAddFormSubmit(evt) {
 
 // Цикл для создания экземпляра карточки, подготовки её к публикации и добавления в DOM
 initialCards.forEach((item) => {
-  const card = new Card(item, '.card-template');
+  const card = new Card(item, '.card-template', handleOpenImagePopup);
 
   const cardElement = card.generateCard();
 
@@ -96,7 +111,6 @@ editFormPopup.addEventListener('submit', handleEditFormSubmit);
 addCardButton.addEventListener('click', () => {
   openPopup(addPopup);
   addFormPopup.reset();
-  addButtonSubmit.setAttribute('disabled', true);
   addButtonSubmit.classList.add('popup__save-button_disabled');
 });
 
@@ -104,11 +118,11 @@ addCardButton.addEventListener('click', () => {
 addFormPopup.addEventListener('submit', handleAddFormSubmit);
 
 // Создаем экземпляр класса FormValidator для формы редактирования информации о себе
-const editFormValidation = new FormValidator(obj, '.popup__form_type_edit');
+const editFormValidation = new FormValidator(obj, editFormPopup);
 editFormValidation.enableValidation();
 
 // Создаем экземпляр класса FormValidator для формы добавления карточек
-const addFormValidation = new FormValidator(obj, '.popup__form_type_add');
+const addFormValidation = new FormValidator(obj, addFormPopup);
 addFormValidation.enableValidation();
 
 closePopups();

@@ -10,14 +10,8 @@ export default class FormValidator {
 
   // Метод, который включает валидацию формы
   enableValidation() {
-    this._formForValidation = document.querySelector(this._formElement);
-    this._input = this._formForValidation.querySelector(this._inputSelector);
-    this._button = this._formForValidation.querySelector(this._buttonSubmitSelector);
-    this._inputList = Array.from(this._formForValidation.querySelectorAll(this._inputSelector));
-
-    this._formForValidation.addEventListener('submit', (evt) => {
-      evt.preventDefault();
-    });
+    this._button = this._formElement.querySelector(this._buttonSubmitSelector);
+    this._inputList = Array.from(this._formElement.querySelectorAll(this._inputSelector));
 
     this._setEventListeners();
   }
@@ -69,7 +63,7 @@ export default class FormValidator {
 
   // Метод, который удаляет у поля класс с ошибкой и скрывает сообщение с ошибкой под полем
   _hideInputError() {
-    this._errorContainer = this._formForValidation.querySelector(`.${this._input.id}-error`);
+    this._errorContainer = this._formElement.querySelector(`.${this._input.id}-error`);
     this._input.classList.remove(this._inputErrorClass);
 
     // Скрываем сообщение об ошибке
@@ -79,7 +73,7 @@ export default class FormValidator {
 
   // Метод, который добавляет полю класс с ошибкой и показывает сообщение с ошибкой под полем
   _showInputError() {
-    this._errorContainer = this._formForValidation.querySelector(`.${this._input.id}-error`);
+    this._errorContainer = this._formElement.querySelector(`.${this._input.id}-error`);
     this._input.classList.add(this._inputErrorClass);
 
     // Показываем сообщение об ошибке

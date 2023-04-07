@@ -1,12 +1,11 @@
-import {popupImageContainer, popupCaption, imagePopup} from '../utils/constants.js';
-
 export default class Card {
   // Принимаем в конструктор данные карточки и селектор её темплейт-элемента
-  constructor(data, templateSelector) {
+  constructor(data, templateSelector, handleOpenImagePopup) {
     this._name = data.name;
     this._link = data.link;
     this._alt = data.alt;
     this._templateSelector = templateSelector;
+    this._handleOpenImagePopup = handleOpenImagePopup;
   }
 
   // Получаем готовую разметку карточки из темплейта для размещения на странице
@@ -43,60 +42,19 @@ export default class Card {
 
   // Метод для удаления карточки
   _handleDeleteButton() {
-    this._deleteButton.closest('.element').remove();
+    this._element.remove();
+    this._element = null;
   }
 
   // Метод для переключения состояния кнопки лайка
-  _handleLikeButton(evt) {
-    evt.target.classList.toggle('element__like-button_active');
-  }
-
-  // Метод для открытия картинки в попапе
-  _handleOpenImagePopup() {
-    popupImageContainer.src = this._link;
-    popupImageContainer.alt = this._alt;
-    popupCaption.textContent = this._name;
-    this._openPopup();
-  }
-
-  // Метод для открытия попапа и прикрепления слушателя событий для закрытия попапа нажатием на клавишу Esc
-  _openPopup() {
-    imagePopup.classList.add('popup_opened');
-    document.addEventListener('keydown', (evt) => {
-      this._closePopupByEscape(evt);
-    });
-  }
-
-  // Метод, закрывающий модальное окно по нажатию на Esc
-  _closePopupByEscape(evt) {
-    if (evt.key === 'Escape') {
-      this._closePopup();
-    };
-  }
-
-  // Метод для закрытия попапа картинки кликом на крестик или тёмный фон
-  _closePopupByMouse(evt) {
-    if (evt.target.classList.contains('popup_opened')) {
-      this._closePopup();
-    };
-
-    if (evt.target.classList.contains('popup__close-button')) {
-      this._closePopup();
-    };
-  }
-
-  // Метод для закрытия попапа и удаления слушателя событий для закрытия попапа нажатием на клавишу Esc
-  _closePopup() {
-    imagePopup.classList.remove('popup_opened');
-    document.removeEventListener('keydown', (evt) => {
-      this._closePopupByEscape(evt);
-    });
+  _handleLikeButton() {
+    this._likeButton.classList.toggle('element__like-button_active');
   }
 
   // Метод для добавления слушателей события
   _setEventListeners() {
-    this._likeButton.addEventListener('click', (evt) => {
-      this._handleLikeButton(evt);
+    this._likeButton.addEventListener('click', () => {
+      this._handleLikeButton();
     });
 
     this._deleteButton.addEventListener('click', () => {
@@ -104,11 +62,7 @@ export default class Card {
     });
 
     this._image.addEventListener('click', () => {
-      this._handleOpenImagePopup();
-    });
-
-    imagePopup.addEventListener('mousedown', (evt) => {
-      this._closePopupByMouse(evt);
+      this._handleOpenImagePopup(this._link, this._alt, this._name);
     });
   }
 }
