@@ -16,24 +16,17 @@ export default class FormValidator {
     this._setEventListeners();
   }
 
-  // Метод для добавления слушателей события всем полям ввода внутри формы
-  _setEventListeners() {
-    // Вызываем метод для блокировки кнопки до начала ввода данных
-    this._toggleButtonState();
+  // Метод для удаления сообщений об ошибках под полями и проверки состояния кнопки submit при повтором открытии попапа
+  resetValidation() {
+    this.toggleButtonState();
 
     this._inputList.forEach((input) => {
-      input.addEventListener('input', () => {
-        this._input = input;
-        // Вызываем метод для проверки валидности поля
-        this._checkInputValidity();
-        // Проверяем, может ли быть кнопка разблокирована
-        this._toggleButtonState();
-      })
+      this._hideInputError(input);
     });
   }
 
   // Метод включения и отключения кнопки submit
-  _toggleButtonState() {
+  toggleButtonState() {
     if (this._hasInvalidInput()) {
       // Отключает кнопку, при наличии невалидных полей
       this._button.setAttribute('disabled', true);
@@ -45,6 +38,22 @@ export default class FormValidator {
     };
   }
 
+  // Метод для добавления слушателей события всем полям ввода внутри формы
+  _setEventListeners() {
+    // Вызываем метод для блокировки кнопки до начала ввода данных
+    this.toggleButtonState();
+
+    this._inputList.forEach((input) => {
+      input.addEventListener('input', () => {
+        this._input = input;
+        // Вызываем метод для проверки валидности поля
+        this._checkInputValidity();
+        // Проверяем, может ли быть кнопка разблокирована
+        this.toggleButtonState();
+      });
+    });
+  }
+
   // Метод, возвращающий true, если хотя бы одно поле невалидно
   _hasInvalidInput() {
     return this._inputList.some((input) => {
@@ -54,15 +63,16 @@ export default class FormValidator {
 
   // Метод, проверяющий валидность поля и вызывающий методы для открытия или закрытия сообщения об ошибке
   _checkInputValidity() {
-      if (!this._input.validity.valid) {
+    if (!this._input.validity.valid) {
       this._showInputError();
     } else {
-      this._hideInputError();
+      this._hideInputError(this._input);
     };
   }
 
   // Метод, который удаляет у поля класс с ошибкой и скрывает сообщение с ошибкой под полем
-  _hideInputError() {
+  _hideInputError(input) {
+    this._input = input;
     this._errorContainer = this._formElement.querySelector(`.${this._input.id}-error`);
     this._input.classList.remove(this._inputErrorClass);
 

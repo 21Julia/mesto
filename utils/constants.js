@@ -19,7 +19,6 @@ const addPopup = document.querySelector('.popup_type_add');
 const titleInput = addPopup.querySelector('.popup__input_type_title');
 const linkInput = addPopup.querySelector('.popup__input_type_link');
 const addFormPopup = addPopup.querySelector('.popup__form_type_add');
-const addButtonSubmit = addPopup.querySelector('.popup__save-button');
 
 // Переменные попапа с картинкой
 const imagePopup = document.querySelector('.popup_type_image');
@@ -28,9 +27,6 @@ const popupCaption = imagePopup.querySelector('.popup__caption');
 
 // Переменная контейнера для карточек
 const cardsList = document.querySelector('.elements__list');
-
-// Переменная template для карточки
-const template = document.querySelector('.card-template');
 
 
 // Объект карточек для автоматического добавления на страницу
@@ -77,4 +73,4 @@ const obj = {
   errorMessageContainerClass: 'popup__input-error_active',
 };
 
-export {profile, nameProfile, descriptionProfile, editProfileButton, addCardButton, popups, editPopup, nameInput, descriptionInput, editFormPopup, addPopup, titleInput, linkInput, addFormPopup, addButtonSubmit, imagePopup, popupImageContainer, popupCaption, cardsList, template, initialCards, obj};
+export {profile, nameProfile, descriptionProfile, editProfileButton, addCardButton, popups, editPopup, nameInput, descriptionInput, editFormPopup, addPopup, titleInput, linkInput, addFormPopup, imagePopup, popupImageContainer, popupCaption, cardsList, initialCards, obj};

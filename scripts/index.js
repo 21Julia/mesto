@@ -1,4 +1,4 @@
-import {popups, nameProfile, descriptionProfile, nameInput, descriptionInput, editPopup, titleInput, linkInput, cardsList, initialCards, editProfileButton, editFormPopup, addCardButton, addPopup, addFormPopup, addButtonSubmit, popupImageContainer, popupCaption, imagePopup, obj} from '../utils/constants.js';
+import {nameProfile, descriptionProfile, editProfileButton, addCardButton, popups, editPopup, nameInput, descriptionInput, editFormPopup, addPopup, titleInput, linkInput, addFormPopup, imagePopup, popupImageContainer, popupCaption, cardsList, initialCards, obj} from '../utils/constants.js';
 
 import Card from './Card.js';
 
@@ -27,15 +27,15 @@ function closePopup(popup) {
 // Функция прикрепления слушателя событий для закрытия попапов кликом на крестик или тёмный фон
 const closePopups = () => {
   popups.forEach((popup) => {
-      popup.addEventListener('mousedown', (evt) => {
-          if (evt.target.classList.contains('popup_opened')) {
-              closePopup(popup);
-          };
+    popup.addEventListener('mousedown', (evt) => {
+      if (evt.target.classList.contains('popup_opened')) {
+        closePopup(popup);
+      };
 
-          if (evt.target.classList.contains('popup__close-button')) {
-            closePopup(popup);
-          };
-      });
+      if (evt.target.classList.contains('popup__close-button')) {
+        closePopup(popup);
+      };
+    });
   });
 };
 
@@ -61,7 +61,7 @@ const createCard = (item) => {
   const cardElement = card.generateCard();
 
   return cardElement;
-}
+};
 
 // Функция для добавления карточки на страницу
 const renderCard = (item, cardsContainer) => {
@@ -90,18 +90,17 @@ function handleAddFormSubmit(evt) {
 
 // Цикл для создания экземпляра карточки, подготовки её к публикации и добавления в DOM
 initialCards.forEach((item) => {
-  const card = new Card(item, '.card-template', handleOpenImagePopup);
-
-  const cardElement = card.generateCard();
+  const cardElement = createCard(item);
 
   cardsList.append(cardElement);
-})
+});
 
 // Прикрепили обработчик к кнопке открытия попапа редактирования информации
 editProfileButton.addEventListener('click', () => {
   openPopup(editPopup);
   nameInput.value = nameProfile.textContent;
   descriptionInput.value = descriptionProfile.textContent;
+  editFormValidation.resetValidation();
 });
 
 // Прикрепили обработчик к форме для сохранения информации о пользователе
@@ -111,7 +110,8 @@ editFormPopup.addEventListener('submit', handleEditFormSubmit);
 addCardButton.addEventListener('click', () => {
   openPopup(addPopup);
   addFormPopup.reset();
-  addButtonSubmit.classList.add('popup__save-button_disabled');
+  addFormValidation.toggleButtonState();
+  addFormValidation.resetValidation();
 });
 
 // Прикрепили обработчик к форме для добавления карточек
