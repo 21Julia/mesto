@@ -1,11 +1,11 @@
 export default class Card {
   // Принимаем в конструктор данные карточки и селектор её темплейт-элемента
-  constructor(data, templateSelector, handleOpenImagePopup) {
-    this._name = data.name;
+  constructor({data, handleCardClick}, templateSelector) {
+    this._title = data.title;
     this._link = data.link;
     this._alt = data.alt;
+    this._handleCardClick = handleCardClick;
     this._templateSelector = templateSelector;
-    this._handleOpenImagePopup = handleOpenImagePopup;
   }
 
   // Получаем готовую разметку карточки из темплейта для размещения на странице
@@ -24,7 +24,7 @@ export default class Card {
   // Метод добавляет данные в разметку и подготавливает карточку к публикации
   generateCard() {
     this._element = this._getTemplate();
-    this._title = this._element.querySelector('.element__title');
+    this._elementTitle = this._element.querySelector('.element__title');
     this._image = this._element.querySelector('.element__image');
     this._likeButton = this._element.querySelector('.element__like-button');
     this._deleteButton = this._element.querySelector('.element__delete-button');
@@ -32,7 +32,7 @@ export default class Card {
     this._setEventListeners();
 
     // Добавим данные
-    this._title.textContent = this._name;
+    this._elementTitle.textContent = this._title;
     this._image.src = this._link;
     this._image.alt = this._alt;
 
@@ -62,7 +62,10 @@ export default class Card {
     });
 
     this._image.addEventListener('click', () => {
-      this._handleOpenImagePopup(this._link, this._alt, this._name);
+      this._handleCardClick({
+        title: this._title,
+        link: this._link,
+        alt: this._alt});
     });
   }
 }

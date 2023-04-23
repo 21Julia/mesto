@@ -5,17 +5,16 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="description" content="Веб-сервис Mesto для создания и обмена фотографиями">
   <meta name="author" content="Курганова Юлия">
-  <link rel="stylesheet" href="./pages/index.css">
   <title>Mesto</title>
 </head>
 <body class="page">
   <header class="header">
-    <img src="./images/logo.svg" alt="Логотип Место-Россия." class="header__logo">
+    <img src="<%=require('./images/logo.svg')%>" alt="Логотип Место-Россия." class="header__logo">
   </header>
   <main>
     <section class="profile" aria-label="Информация о профиле">
       <div class="profile__info">
-        <img src="./images/profile-kusto.jpg" alt="Мужчина в очках и красной шапке на фоне моря." class="profile__image">
+        <img src="<%=require('./images/profile-kusto.jpg')%>" alt="Мужчина в очках и красной шапке на фоне моря." class="profile__image">
         <div class="profile__description">
           <div class="profile__text">
             <h1 class="profile__title">Жак-Ив Кусто</h1>
@@ -90,6 +89,5 @@
       </div>
     </li>
   </template>
-  <script type="module" src="./scripts/index.js"></script>
 </body>
 </html>
