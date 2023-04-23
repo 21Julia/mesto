@@ -12,8 +12,6 @@ const addCardButton = profile.querySelector('.profile__add-button');
 
 // Переменные попапа редактирования информации
 const editPopup = document.querySelector('.popup_type_edit');
-const nameInput = editPopup.querySelector('.popup__input_type_name');
-const descriptionInput = editPopup.querySelector('.popup__input_type_description');
 const editFormPopup = editPopup.querySelector('.popup__form_type_edit');
 
 // Переменные попапа добавления карточек
@@ -68,4 +66,4 @@ const obj = {
   errorMessageContainerClass: 'popup__input-error_active',
 };
 
-export {editProfileButton, addCardButton, nameInput, descriptionInput, editFormPopup, addFormPopup, cardsListSelector, initialCards, obj};
+export {editProfileButton, addCardButton, editFormPopup, addFormPopup, cardsListSelector, initialCards, obj};

@@ -1,6 +1,6 @@
 import './index.css';
 
-import {editProfileButton, addCardButton, nameInput, descriptionInput, editFormPopup, addFormPopup, cardsListSelector, initialCards, obj} from '../utils/constants.js';
+import {editProfileButton, addCardButton, editFormPopup, addFormPopup, cardsListSelector, initialCards, obj} from '../utils/constants.js';
 
 import Card from '../components/Card.js';
 import FormValidator from '../components/FormValidator.js';
@@ -71,9 +71,7 @@ const addPopup = new PopupWithForm({
 
 // Прикрепили обработчик к кнопке открытия попапа редактирования информации
 editProfileButton.addEventListener('click', () => {
-  const profile = userInfo.getUserInfo();
-  nameInput.value = profile.name;
-  descriptionInput.value = profile.description;
+  editPopup.setInputValues(userInfo.getUserInfo());
 
   editPopup.open();
 

@@ -23,6 +23,11 @@ export default class PopupWithForm extends Popup {
     });
   }
 
+  // Метод вставляет данные в инпуты
+  setInputValues(data) {
+    this._inputList.forEach(input => input.value = data[input.name]);
+  }
+
   // Метод наследует родительский и при закрытии попапа сбрасывает форму
   close() {
     super.close();
