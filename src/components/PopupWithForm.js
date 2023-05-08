@@ -11,16 +11,27 @@ export default class PopupWithForm extends Popup {
   setEventListeners() {
     super.setEventListeners();
 
-    this._form = this._popup.querySelector('.popup__form');
     this._inputList = this._form.querySelectorAll('.popup__input');
+    this._buttonSubmit = this._form.querySelector('.popup__save-button');
 
     this._form.addEventListener('submit', (evt) => {
       evt.preventDefault();
+
+      this.renderLoading(true);
 
       this._handleFormSubmit(this._getInputValues());
 
       this.close();
     });
+  }
+
+  // Метод для включения и отключения прелоадера
+  renderLoading(isLoading, text) {
+    if (isLoading) {
+      this._buttonSubmit.textContent = 'Сохранение...';
+    } else {
+      this._buttonSubmit.textContent = text;
+    }
   }
 
   // Метод вставляет данные в инпуты

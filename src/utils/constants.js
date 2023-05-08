@@ -1,14 +1,13 @@
-import karachayevskImage from '../images/element-karachayevsk.jpg';
-import elbrusImage from '../images/element-mount-elbrus.jpg';
-import dombayImage from '../images/element-dombay.jpg';
-import lermontovImage from '../images/element-lermontov.jpg';
-import essentukiImage from '../images/element-essentuki.jpg';
-import castleImage from '../images/element-castle.jpg';
-
 // Переменные из блока Профиль
 const profile = document.querySelector('.profile');
+const avatarProfile = profile.querySelector('.profile__image');
+const avatarProfileButton = profile.querySelector('.profile__avatar-button');
 const editProfileButton = profile.querySelector('.profile__edit-button');
 const addCardButton = profile.querySelector('.profile__add-button');
+
+// Переменные попапа редактирования аватара пользователя
+const avatarPopup = document.querySelector('.popup_type_avatar');
+const avatarFormPopup = avatarPopup.querySelector('.popup__form_type_avatar');
 
 // Переменные попапа редактирования информации
 const editPopup = document.querySelector('.popup_type_edit');
@@ -21,42 +20,6 @@ const addFormPopup = addPopup.querySelector('.popup__form_type_add');
 // Переменная селектора для карточек
 const cardsListSelector = '.elements__list';
 
-
-// Объект карточек для автоматического добавления на страницу
-const initialCards = [
-  {
-    title: 'Карачаевск',
-    link: karachayevskImage,
-    alt: 'Храм, расположенный на горном хребте, окружённый лесом.'
-  },
-  {
-    title: 'Гора Эльбрус',
-    link: elbrusImage,
-    alt: 'Долина с верхушками гор в далеке.'
-  },
-  {
-    title: 'Домбай',
-    link: dombayImage,
-    alt: 'Склоны заснеженных гор с лесом.'
-  },
-  {
-    title: 'Лермонтов',
-    link: lermontovImage,
-    alt: 'Монастырь на фоне гор.'
-  },
-  {
-    title: 'Ессентуки',
-    link: essentukiImage,
-    alt: 'Здание в античном стиле с колоннами.'
-  },
-  {
-    title: 'Замок Шато Эркен',
-    link: castleImage,
-    alt: 'Вид на озеро с замком в далеке.'
-  }
-];
-
-
 // Объект настроек с селекторами и классами формы
 const obj = {
   inputSelector: '.popup__input',
@@ -66,4 +29,4 @@ const obj = {
   errorMessageContainerClass: 'popup__input-error_active',
 };
 
-export {editProfileButton, addCardButton, editFormPopup, addFormPopup, cardsListSelector, initialCards, obj};
+export {avatarProfile, avatarProfileButton, editProfileButton, addCardButton, avatarFormPopup, editFormPopup, addFormPopup, cardsListSelector, obj};

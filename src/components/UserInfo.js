@@ -9,7 +9,7 @@ export default class UserInfo {
   getUserInfo() {
     const profile = {
       name: this._profileName.textContent,
-      description: this._profileDescription.textContent
+      about: this._profileDescription.textContent
     };
 
     return profile;
@@ -18,6 +18,6 @@ export default class UserInfo {
   // Метод принимает новые данные пользователя и добавляет их в профайл
   setUserInfo(inputValues) {
     this._profileName.textContent = inputValues.name;
-    this._profileDescription.textContent = inputValues.description
+    this._profileDescription.textContent = inputValues.about
   }
 }
