@@ -1,6 +1,5 @@
 // Переменные из блока Профиль
 const profile = document.querySelector('.profile');
-const avatarProfile = profile.querySelector('.profile__image');
 const avatarProfileButton = profile.querySelector('.profile__avatar-button');
 const editProfileButton = profile.querySelector('.profile__edit-button');
 const addCardButton = profile.querySelector('.profile__add-button');
@@ -29,4 +28,4 @@ const obj = {
   errorMessageContainerClass: 'popup__input-error_active',
 };
 
-export {avatarProfile, avatarProfileButton, editProfileButton, addCardButton, avatarFormPopup, editFormPopup, addFormPopup, cardsListSelector, obj};
+export {avatarProfileButton, editProfileButton, addCardButton, avatarFormPopup, editFormPopup, addFormPopup, cardsListSelector, obj};

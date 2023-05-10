@@ -1,10 +1,11 @@
 import Popup from './Popup.js';
 
 export default class PopupWithForm extends Popup {
-  constructor({selectorPopup, handleFormSubmit}) {
+  constructor({selectorPopup, handleFormSubmit}, text) {
     super(selectorPopup);
 
     this._handleFormSubmit = handleFormSubmit;
+    this._text = text;
   }
 
   // Метод наследует родительский обработчик клика по иконке закрытия и добавляет обработчик сабмита формы
@@ -20,17 +21,15 @@ export default class PopupWithForm extends Popup {
       this.renderLoading(true);
 
       this._handleFormSubmit(this._getInputValues());
-
-      this.close();
     });
   }
 
   // Метод для включения и отключения прелоадера
-  renderLoading(isLoading, text) {
+  renderLoading(isLoading) {
     if (isLoading) {
       this._buttonSubmit.textContent = 'Сохранение...';
     } else {
-      this._buttonSubmit.textContent = text;
+      this._buttonSubmit.textContent = this._text;
     }
   }
 

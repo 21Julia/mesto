@@ -13,13 +13,7 @@ export default class Api {
       }
     })
       .then((res) => {
-        if (res.ok) {
-          return res.json();
-        }
-        return Promise.reject(res.status);
-      })
-      .catch((err) => {
-        console.log(`Ошибка загрузки карточек: ${err}`);
+        return this._getResponseData(res);
       })
   }
 
@@ -37,13 +31,7 @@ export default class Api {
       })
     })
       .then((res) => {
-        if (res.ok) {
-          return res.json();
-        }
-        return Promise.reject(res.status);
-      })
-      .catch((err) => {
-        console.log(`Ошибка при добавлении карточки: ${err}`);
+        return this._getResponseData(res);
       })
   }
 
@@ -56,22 +44,12 @@ export default class Api {
       }
     })
       .then((res) => {
-        if (res.ok) {
-          return res.json();
-        }
-        return Promise.reject(res.status);
-      })
-      .catch((err) => {
-        console.log(`Ошибка при загрузки информации: ${err}`);
+        return this._getResponseData(res);
       })
   }
 
   getAllInitialInformation() {
     return Promise.all([this.getInitialCards(), this.getUserInformation()])
-  }
-
-  getNewInformation(card) {
-    return Promise.all([this.addNewCard(card), this.getUserInformation()])
   }
 
   // Метод для обновления данных пользователя
@@ -88,13 +66,7 @@ export default class Api {
       })
     })
       .then((res) => {
-        if (res.ok) {
-          return res.json();
-        }
-        return Promise.reject(res.status);
-      })
-      .catch((err) => {
-        console.log(`Ошибка при обновлении данных: ${err}`);
+        return this._getResponseData(res);
       })
   }
 
@@ -108,13 +80,7 @@ export default class Api {
       },
     })
       .then((res) => {
-        if (res.ok) {
-          return res.json();
-        }
-        return Promise.reject(res.status);
-      })
-      .catch((err) => {
-        console.log(`Ошибка при удалении: ${err}`);
+        return this._getResponseData(res);
       })
   }
 
@@ -131,13 +97,7 @@ export default class Api {
       })
     })
       .then((res) => {
-        if (res.ok) {
-          return res.json();
-        }
-        return Promise.reject(res.status);
-      })
-      .catch((err) => {
-        console.log(`Ошибка при добавлении лайка: ${err}`);
+        return this._getResponseData(res);
       })
   }
 
@@ -151,13 +111,7 @@ export default class Api {
       },
     })
       .then((res) => {
-        if (res.ok) {
-          return res.json();
-        }
-        return Promise.reject(res.status);
-      })
-      .catch((err) => {
-        console.log(`Ошибка при удалении лайка: ${err}`);
+        return this._getResponseData(res);
       })
   }
 
@@ -174,13 +128,14 @@ export default class Api {
       })
     })
       .then((res) => {
-        if (res.ok) {
-          return res.json();
-        }
-        return Promise.reject(res.status);
+        return this._getResponseData(res);
       })
-      .catch((err) => {
-        console.log(`Ошибка при обновлении аватара: ${err}`);
-      })
+  }
+
+  _getResponseData(res) {
+    if (!res.ok) {
+      return Promise.reject(res.status);
+    }
+    return res.json();
   }
 }
